@@ -1,4 +1,5 @@
 from tkinter import *
+
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -9,16 +10,19 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
-# ---------------------------- TIMER RESET ------------------------------- # 
-def reset():
 
+
+# ---------------------------- TIMER RESET ------------------------------- #
+def reset():
     global reps, checks
     reps = 0
     checks = '1:'
     check_l.config(text=checks)
     canvas.itemconfig(timer_text, text='00:00')
     timer_l.config(text='Timer', fg=GREEN)
-# ---------------------------- TIMER MECHANISM ------------------------------- # 
+
+
+# ---------------------------- TIMER MECHANISM ------------------------------- #
 def start_timer():
     global reps, checks
     if reps == 9:
@@ -27,31 +31,30 @@ def start_timer():
         check_l.config(text=checks)
     reps += 1
     if reps % 2 == 0:
-        count_down(SHORT_BREAK_MIN*60)
+        count_down(SHORT_BREAK_MIN * 60)
         checks += '✔'
         check_l.config(text=checks)
         timer_l.config(text='Break', fg=PINK)
     elif reps == 8:
-        count_down(LONG_BREAK_MIN*60)
+        count_down(LONG_BREAK_MIN * 60)
         timer_l.config(text='Break', fg=RED)
     else:
-        count_down(WORK_MIN*60)
+        count_down(WORK_MIN * 60)
         timer_l.config(text='Work', fg=GREEN)
 
 
-
-# ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
+# ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def count_down(count):
     global reps
     if reps != 0:
         if len(str(count % 60)) < 2:
             time = str(count // 60) + ':0' + str(count % 60)
         else:
-            time = str(count//60) + ':' + str(count % 60)
+            time = str(count // 60) + ':' + str(count % 60)
         canvas.itemconfig(timer_text, text=time)
 
         if count > 0:
-            window.after(5, count_down, count-1)
+            window.after(5, count_down, count - 1)
         else:
             start_timer()
     else:
