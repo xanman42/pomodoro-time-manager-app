@@ -54,7 +54,7 @@ def count_down(count):
         canvas.itemconfig(timer_text, text=time)
 
         if count > 0:
-            window.after(5, count_down, count - 1)
+            window.after(1000, count_down, count - 1)
         else:
             start_timer()
     else:
